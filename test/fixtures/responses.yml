@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entry: MyText
+  cleaned_entry: MyText
+  time_entered: 2017-12-23 19:55:03
+
+two:
+  entry: MyText
+  cleaned_entry: MyText
+  time_entered: 2017-12-23 19:55:03
