@@ -1,0 +1,38 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+ 
+  <% if signed_in? and current_user.admin? %>
+  <div class="field">
+    <%= f.label :role %><br>
+    <%= f.select(:role_id, options_from_collection_for_select(Role.all, :name, :name, @user_role_name || "user")) %>
+  </div> 
+ 
+
+  <% end %>
+  <div class="col-md-1">
+    <%= f.submit "Save", class: "btn btn-default btn-primary" %>
+  </div> 
+ 
+<% end %>
+
+<div class="col-md-1">
+  <%= button_to "Cancel", :back, class: "btn btn-default btn-primary", :method => :get %>
+</div>
+
+
+
