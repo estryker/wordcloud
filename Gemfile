@@ -63,3 +63,4 @@ gem 'devise'
 group :development do
   gem 'rails_layout'
 end
+gem 'bootstrap-sass', '~> 3.2.0'
