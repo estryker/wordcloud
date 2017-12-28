@@ -1,0 +1,64 @@
+<h1>Create a new Survey</h1>
+
+<%= form_for(@survey, :html => {:class => "form-horizontal center", :multipart => true}) do |f| %>
+<% if @survey.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+  
+  <ul>
+    <% @survey.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <h3> Open until: </h3>
+        <div class='col-sm-6'>
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker'>
+		<%= f.text_field(:closing_time, :class => "form-control") %>
+                    <!-- <input type='text' class="form-control" />  -->
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+	<!-- https://eonasdan.github.io/bootstrap-datetimepicker/  -->
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker').datetimepicker({
+                    defaultDate: "<%= 1.week.from_now.iso8601%>"
+                });
+            });
+        </script>
+    </div>
+</div>
+
+<div class="row">
+  <div class="form-group">
+    <%= f.label :max_responses , class: "col-md-1 control-label" %>
+    <div class="col-md-5">
+      <%= f.select(:max_responses, (1..10).to_a.map {|i| i.to_s} + ["No Limit"]) %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3"> 
+    Public <%= radio_button_tag 'is_public', 0, true %>
+  </div>
+  <div class="col-md-3"> 
+    Logged in users only <%= radio_button_tag 'is_public', 1,false %>
+  </div>
+</div>
+
+<div class="actions">
+  <div class="col-md-5">
+    <%= f.submit "Create!", class: "btn btn-default btn-primary" %>
+  </div>
+</div>
+<% end %>

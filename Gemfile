@@ -65,3 +65,7 @@ group :development do
   gem 'annotate' 
 end
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'jquery-rails'
+# to help with the datetime picker
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails'

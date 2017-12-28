@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228150958) do
+ActiveRecord::Schema.define(version: 20171228194652) do
 
   create_table "responses", force: :cascade do |t|
     t.text "entry"
@@ -18,14 +18,12 @@ ActiveRecord::Schema.define(version: 20171228150958) do
     t.datetime "time_entered"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "survey_id"
+    t.index ["survey_id"], name: "index_responses_on_survey_id"
   end
 
-  create_table "surveys", force: :cascade do |t|
-    t.datetime "closing_time"
-    t.string "survey_pin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "surveys" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

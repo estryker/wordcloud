@@ -1,4 +1,4 @@
-class SurveyController < ApplicationController
+class SurveysController < ApplicationController
   def index
   end
 
@@ -11,12 +11,15 @@ class SurveyController < ApplicationController
     end
   end
   
-  def results
+  def show
+    @survey = Survey.find(params[:id])
+    @responses = @survey.responses
   end
 
   # when users are taking a survey
   def input
-    survey_pin = params[:id]
+    @survey = Survey.find(params[:id])
+
   end
 
   # when the creator wants to change something in an existing survey
@@ -28,10 +31,11 @@ class SurveyController < ApplicationController
   end
 
   def create
-    @survey = Survey.new(survey_params)
+    puts survey_params
+    @survey = Survey.new(:closing_time => DateTime.parse(survey_params[:closing_time]),:max_responses => survey_params[:max_responses])
     respond_to do | format |
       if @survey.save
-        format.html { redirect_to @survey, notice: "Your new survey was created! PIN: #{s.survey_pin}" }
+        format.html { redirect_to @survey, notice: "Your new survey was created! PIN: #{@survey.survey_pin}" }
       else
         format.html { render :new }
       end
@@ -40,6 +44,6 @@ class SurveyController < ApplicationController
 
   private
   def survey_params
-    params.require(:open).permit(:duration_days)
+    params.require(:survey).permit(:is_public, :closing_time, :max_responses)
   end
 end

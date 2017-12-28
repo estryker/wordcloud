@@ -5,15 +5,17 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  get 'survey/index'
+  resources :surveys
 
-  get 'survey/results'
+ # get 'survey/index'
 
-  get 'survey/input'
+ # get 'survey/results'
 
-  get 'survey/admin'
+ get 'surveys/input'
 
-  get 'survey/new'
+ # get 'survey/admin'
+
+ #  get 'survey/new'
 
   get 'welcome/index'
 
