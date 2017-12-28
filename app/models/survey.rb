@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: surveys
+#
+#  id           :integer          not null, primary key
+#  closing_time :datetime
+#  survey_pin   :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Survey < ApplicationRecord
 
   # callback on the create method so that a PIN gets created only when saved correctly
