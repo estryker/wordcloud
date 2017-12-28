@@ -62,5 +62,6 @@ gem 'devise'
 
 group :development do
   gem 'rails_layout'
+  gem 'annotate' 
 end
 gem 'bootstrap-sass', '~> 3.2.0'

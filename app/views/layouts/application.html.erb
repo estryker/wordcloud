@@ -19,10 +19,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><%= image_tag 'wordcloud_logo.jpg', { style: "width: 75%;  height: auto"} %> </a>
+        <!-- <a class="navbar-brand" href="/"><%= image_tag 'wordcloud_logo.png', { style: "width: 5;  height: 5"} %> </a> -->
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+  <div class="container">
+    <% flash.each do |key, value| %>
+    <div id="flash_message", class="alert <%= bootstrap_class_for(key) %>"><%= value %></div>
+    <% end %>
+  </div>
     <%= yield %>
   </body>
 </html>
