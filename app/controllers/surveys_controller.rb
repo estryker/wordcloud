@@ -13,7 +13,8 @@ class SurveysController < ApplicationController
   
   def show
     @survey = Survey.find(params[:id])
-    @responses = @survey.responses
+    responses = @survey.responses
+    # @word_counts = responses.cleaned_entry.
   end
 
   # when users are taking a survey. this corresponds to the 'get' action
