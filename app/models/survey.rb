@@ -11,6 +11,8 @@
 
 class Survey < ApplicationRecord
   has_many :responses
+
+  validates :question, length: { minimum: 1, maximum: 1000 }
   
   # callback on the create method so that a PIN gets created only when saved correctly
   before_create do | survey |

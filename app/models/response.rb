@@ -11,5 +11,5 @@
 #
 
 class Response < ApplicationRecord
-  belongs_to :survey
+  belongs_to :survey# , type: :uuid
 end

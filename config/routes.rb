@@ -7,15 +7,9 @@ Rails.application.routes.draw do
 
   resources :surveys
 
- # get 'survey/index'
 
- # get 'survey/results'
+ get 'surveys/:id/input', :to => 'surveys#input'
 
- get 'surveys/input'
-
- # get 'survey/admin'
-
- #  get 'survey/new'
 
   get 'welcome/index'
 

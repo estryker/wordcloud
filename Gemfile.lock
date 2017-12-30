@@ -138,6 +138,7 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     orm_adapter (0.5.0)
+    pg (0.19.0)
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
@@ -245,6 +246,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-istherea (= 0.0.2)
   omniauth-twitter
+  pg
   puma (~> 3.7)
   rails (~> 5.1.4)
   rails_layout

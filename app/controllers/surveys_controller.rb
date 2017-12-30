@@ -16,12 +16,17 @@ class SurveysController < ApplicationController
     @responses = @survey.responses
   end
 
-  # when users are taking a survey
+  # when users are taking a survey. this corresponds to the 'get' action
   def input
     @survey = Survey.find(params[:id])
-
+    @response = Response.new(:survey_id => @survey.id)
   end
 
+  # when users are taking a survey. this corresponds to the 'put' action
+  def add_input
+    @survey = Survey.find(params[:id])
+  end
+  
   # when the creator wants to change something in an existing survey
   def admin
   end
@@ -44,6 +49,6 @@ class SurveysController < ApplicationController
 
   private
   def survey_params
-    params.require(:survey).permit(:is_public, :closing_time, :max_responses)
+    params.require(:survey).permit(:is_public, :closing_time, :max_responses, :question)
   end
 end

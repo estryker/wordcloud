@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228194652) do
+ActiveRecord::Schema.define(version: 20171230160655) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "responses", force: :cascade do |t|
     t.text "entry"
@@ -18,12 +22,18 @@ ActiveRecord::Schema.define(version: 20171228194652) do
     t.datetime "time_entered"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "survey_id"
+    t.uuid "survey_id"
     t.index ["survey_id"], name: "index_responses_on_survey_id"
   end
 
-# Could not dump table "surveys" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "closing_time"
+    t.string "survey_pin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "max_responses"
+    t.string "question"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -46,4 +56,5 @@ ActiveRecord::Schema.define(version: 20171228194652) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
+  add_foreign_key "responses", "surveys"
 end

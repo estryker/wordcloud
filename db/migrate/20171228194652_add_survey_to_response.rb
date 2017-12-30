@@ -1,5 +1,5 @@
 class AddSurveyToResponse < ActiveRecord::Migration[5.1]
   def change
-    add_reference :responses, :survey, foreign_key: true
+    add_reference :responses, :survey, foreign_key: true, type: :uuid
   end
 end
