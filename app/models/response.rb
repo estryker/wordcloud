@@ -12,4 +12,9 @@
 
 class Response < ApplicationRecord
   belongs_to :survey# , type: :uuid
+  validates :entry, presence: true
+
+  before_create do | response |
+    response.cleaned_entry = response.entry.split(" ").map {|word|  word.sub(/^[^\w]+/,"").sub(/[^w]+$/,"")}.join("")
+  end
 end

@@ -1,6 +1,11 @@
-<h1>Survey</h1>
-<p>Find me in app/views/survey/input.html.erb</p>
-<%= form_for(@response) do  %>
+<div class="container">
+  <h1>Survey</h1>
+  <h2> <%= @survey.question %> </h2>
+  <%= form_tag survey_path + "/input" do   %>
 
-
-<% end %>
+  <%= label_tag :response %>
+  <%= text_field_tag :entry, params[:entry] %>
+  <%= submit_tag "Submit", class: "btn btn-large btn-primary" %>
+  
+  <% end %>
+</div>

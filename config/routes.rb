@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
  get 'surveys/:id/input', :to => 'surveys#input'
 
+ post 'surveys/:id/input', :to => 'surveys#add_input'
 
   get 'welcome/index'
 

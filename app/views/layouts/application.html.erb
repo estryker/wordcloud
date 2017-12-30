@@ -8,21 +8,31 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-<body>
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+  <body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"><%= link_to "New Survey", controller: "survey", action: "new" </span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <!-- <a class="navbar-brand" href="/"><%= image_tag 'wordcloud_logo.png', { style: "width: 5;  height: 5"} %> </a> -->
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">WordCloud </a>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <!-- these two ways of linking weren't compatible with saving code and switching between them -->
+        <li><%= link_to "New Survey", new_survey_path %>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
   <div class="container">
     <% flash.each do |key, value| %>
     <div id="flash_message", class="alert <%= bootstrap_class_for(key) %>"><%= value %></div>
