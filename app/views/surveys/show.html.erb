@@ -2,5 +2,25 @@
   <h2> Survey Question: </h2>
   <!-- TODO put word cloud here -->
   <h3> <%= @survey.question %> </h3>
+
+  <h4>Word Counts</h4>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+	<th scope="col">Rank</th>
+	<th scope="col">Word</th>
+	<th scope="col">Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @word_counts.sort {|a,b| @word_counts[b] <=> @word_counts[a]}.first(10).each_with_index do | word_count,pos | %>
+      <tr>
+	<th scope="row"><%= pos + 1 %></th>
+	<td><%= word_count.first %></td>
+	<td><%= word_count.last %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>      
   <%= link_to 'Add input', survey_path + "/input", :class => "btn btn-default btn-primary" %> 
 </div>

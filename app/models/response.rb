@@ -15,6 +15,6 @@ class Response < ApplicationRecord
   validates :entry, presence: true
 
   before_create do | response |
-    response.cleaned_entry = response.entry.split(" ").map {|word|  word.sub(/^[^\w]+/,"").sub(/[^w]+$/,"")}.join("")
+    response.cleaned_entry = response.entry.split(" ").map {|word| word.downcase.sub(/^\W+/,"").sub(/\W+$/,"")}.join("")
   end
 end

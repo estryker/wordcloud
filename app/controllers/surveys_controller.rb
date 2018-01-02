@@ -14,7 +14,10 @@ class SurveysController < ApplicationController
   def show
     @survey = Survey.find(params[:id])
     responses = @survey.responses
-    # @word_counts = responses.cleaned_entry.
+    puts "Response: \n" + responses.map {|r| r.cleaned_entry}.join("\n")
+    # s.flat_map {|x| x.split(" ") }.group_by {|w| w}.map {|k,v| [k, v.length]}
+    @word_counts = Hash.new(0)
+    responses.flat_map {|r| r.cleaned_entry.split(" ")}.each {|word| @word_counts[word] += 1 }
   end
 
   # when users are taking a survey. this corresponds to the 'get' action
