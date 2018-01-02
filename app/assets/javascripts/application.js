@@ -15,4 +15,5 @@
 //= require bootstrap-datetimepicker
 //= require rails-ujs
 //= require turbolinks
+//= require jqcloud
 //= require_tree .

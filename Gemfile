@@ -71,3 +71,5 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails'
 
 gem 'pg'
+
+gem "jqcloud-rails"
