@@ -2,9 +2,10 @@
   <h1>Survey</h1>
   <h2> <%= @survey.question %> </h2>
   <%= form_tag survey_path + "/input" do   %>
-
-  <%= label_tag :response %>
-  <%= text_field_tag :entry, params[:entry] %>
+  <div class="form-group">
+    <%= label_tag :response %>
+    <%= text_field_tag :entry, params[:entry] %>
+    </div>
   <%= submit_tag "Submit", class: "btn btn-large btn-primary" %>
   
   <% end %>
