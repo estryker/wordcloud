@@ -1,10 +1,10 @@
-<% sorted_word_counts = @word_counts.sort {|a,b| @word_counts[b] <=> @word_counts[a]} %>
+
 <script type="text/javascript">
       /*!
        * Create an array of word objects, each representing a word in the cloud
        */
       var word_array = [
-      <%= raw(sorted_word_counts.map {| word,count | "{text: \"#{word}\", weight: \"#{count}\"}" }.join(",")) %>
+      <%= raw(@word_counts.map {| word,count | "{text: \"#{word}\", weight: \"#{count}\"}" }.join(",")) %>
       ];
 
       $(function() {
@@ -32,11 +32,12 @@
       </tr>
     </thead>
     <tbody>
-      <% sorted_word_counts.first(10).each_with_index do | word_count,pos | %>
+      <% sorted_words = @word_counts.keys.sort {|a,b| @word_counts[b] <=> @word_counts[a]} %>
+      <% sorted_words.first(10).each_with_index do | word,pos | %>
       <tr>
 	<th scope="row"><%= pos + 1 %></th>
-	<td><%= word_count.first %></td>
-	<td><%= word_count.last %></td>
+	<td><%= word %></td>
+	<td><%= @word_counts[word] %></td>
       </tr>
       <% end %>
     </tbody>
