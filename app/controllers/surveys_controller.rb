@@ -20,10 +20,25 @@ class SurveysController < ApplicationController
     responses.flat_map {|r| r.cleaned_entry.split(" ")}.each {|word| @word_counts[word] += 1 }
   end
 
+  def do_search
+    pin = params[:survey_pin]
+    if(s = Survey.find(:survey_pin => pin))
+       redirect_to s
+    else
+      flash[:error] = "No survey with pin: #{} found ... try again"
+      redirect_back_or root_path
+    end
+  end
+
+  def search
+    respond_to do | format |
+      format.html render :search
+    end
+  end
+  
   # when users are taking a survey. this corresponds to the 'get' action
   def input
     @survey = Survey.find(params[:id])
-
   end
 
   # when users are taking a survey. this corresponds to the 'put' action

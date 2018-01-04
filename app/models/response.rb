@@ -8,10 +8,13 @@
 #  time_entered  :datetime
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  survey_id     :uuid
+#  user_id       :integer
 #
 
 class Response < ApplicationRecord
   belongs_to :survey# , type: :uuid
+  belongs_to :user
   validates :entry, presence: true
 
   before_create do | response |

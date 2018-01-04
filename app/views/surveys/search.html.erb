@@ -1,0 +1,10 @@
+<div class="container">
+  <%= form_tag surveys_search_path do   %>
+  <div class="form-group">
+    <%= label_tag :survey_pin %>
+    <%= text_field_tag :survey_pin, params[:survey_pin] %>
+    <%= submit_tag "Find", class: "btn btn-large btn-primary" %>
+  </div>
+  
+  <% end %>
+</div>

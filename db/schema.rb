@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171230160655) do
+ActiveRecord::Schema.define(version: 20180103125450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,9 @@ ActiveRecord::Schema.define(version: 20171230160655) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "survey_id"
+    t.bigint "user_id"
     t.index ["survey_id"], name: "index_responses_on_survey_id"
+    t.index ["user_id"], name: "index_responses_on_user_id"
   end
 
   create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -57,4 +59,5 @@ ActiveRecord::Schema.define(version: 20171230160655) do
   end
 
   add_foreign_key "responses", "surveys"
+  add_foreign_key "responses", "users"
 end

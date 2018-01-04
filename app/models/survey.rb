@@ -2,11 +2,13 @@
 #
 # Table name: surveys
 #
-#  id           :integer          not null, primary key
-#  closing_time :datetime
-#  survey_pin   :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :uuid             not null, primary key
+#  closing_time  :datetime
+#  survey_pin    :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  max_responses :integer
+#  question      :string
 #
 
 class Survey < ApplicationRecord

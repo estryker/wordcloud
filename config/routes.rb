@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   resources :surveys
 
 
- get 'surveys/:id/input', :to => 'surveys#input'
+  get 'surveys/:id/input', :to => 'surveys#input'
+  get 'surveys/search'  #, :to => 'surveys#search'
 
- post 'surveys/:id/input', :to => 'surveys#add_input'
+  post 'surveys/:id/input', :to => 'surveys#add_input'
+  post 'surveys/search', :to => 'surveys#do_search'
 
   get 'welcome/index'
 

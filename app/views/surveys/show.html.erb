@@ -14,9 +14,9 @@
 </script>
 
 <div class="container" >
-  <h2> Survey Question: </h2>
+  <h3> Survey <i> <%= @survey.survey_pin %> </i></h3>
   <!-- TODO put word cloud here -->
-  <h3> <%= @survey.question %> </h3>
+  <h2> <%= @survey.question %> </h2>
   <p>
     <!-- You should explicitly specify the dimensions of the container element -->
     <div id="wordcloud" style="width: 550px; height: 350px;"></div>
