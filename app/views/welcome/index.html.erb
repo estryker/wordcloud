@@ -1,2 +1,18 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<div class="container">
+
+  <h1>WordCloud</h1>
+
+  <h3> Find a survey </h3>
+  <%= form_tag search_path do   %>
+  <div class="form-group">
+    <%= label_tag :survey_pin %>
+    <%= text_field_tag :survey_pin, params[:survey_pin] %>
+    <%= submit_tag "Find", class: "btn btn-large btn-primary" %>
+  </div>
+
+  <% end %>
+  &nbsp
+  
+  <h3> Create a new survey </h3>
+  <%= link_to "New Survey", new_survey_path, class: "btn btn-large btn-primary"  %>
+</div>

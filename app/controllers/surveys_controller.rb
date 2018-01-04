@@ -51,7 +51,8 @@ class SurveysController < ApplicationController
       flash[:notice] = "Thank you for your input!"
       redirect_to @survey
     else
-      redirect_back_or root_path
+      flash[:error] = "Couldn't add input: #{@response.errors.messages}"
+      redirect_back(fallback_location: root_path)
     end
   end
   

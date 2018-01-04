@@ -14,7 +14,7 @@
 
 class Response < ApplicationRecord
   belongs_to :survey# , type: :uuid
-  belongs_to :user
+  # belongs_to :user
   validates :entry, presence: true
 
   before_create do | response |
