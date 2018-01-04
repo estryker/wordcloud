@@ -21,18 +21,19 @@ class SurveysController < ApplicationController
   end
 
   def do_search
-    pin = params[:survey_pin]
-    if(s = Survey.find(:survey_pin => pin))
+    pin = params[:survey_pin].strip
+    if(s = Survey.find_by_survey_pin(pin))
        redirect_to s
     else
-      flash[:error] = "No survey with pin: #{} found ... try again"
-      redirect_back_or root_path
+      flash[:error] = "No survey with pin: #{params[:survey_pin]} found ... try again"
+      redirect_back(fallback_location: root_path)
     end
   end
 
   def search
     respond_to do | format |
-      format.html render :search
+      puts 'rendering search'
+      format.html { render :search }
     end
   end
   

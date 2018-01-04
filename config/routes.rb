@@ -9,10 +9,10 @@ Rails.application.routes.draw do
 
 
   get 'surveys/:id/input', :to => 'surveys#input'
-  get 'surveys/search'  #, :to => 'surveys#search'
+  get 'search', :to => 'surveys#search'
 
   post 'surveys/:id/input', :to => 'surveys#add_input'
-  post 'surveys/search', :to => 'surveys#do_search'
+  post 'search', :to => 'surveys#do_search'
 
   get 'welcome/index'
 
