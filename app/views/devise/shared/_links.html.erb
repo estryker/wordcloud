@@ -1,0 +1,43 @@
+<%- if false and controller_name != 'sessions' %>
+  <%= button_to "Log in", new_session_path(resource_name), :class => 'btn btn-primary' %><br />
+<% end -%>
+<% unless signed_in? %>
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+<h2> Don't have an account? </h2>
+ <div class="actions">
+  <%= button_to "Sign up", new_user_registration_path, {:class => 'btn btn-primary', :method => :get } %><br />
+  <div>
+<% end -%>
+
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+<% end -%>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+<% end -%>
+
+<% end -%>
+
+<%- if devise_mapping.omniauthable? %>
+<h2>Sign in/out using one of the following services  </h2>
+<i>*note that you may still need to confirm an email address </i>
+<div class="col-sm-offset-3 col-sm-10">
+  <% if  signed_in_to? 'facebook' %>
+  <%= link_to image_tag('facebook_64.png'), destroy_user_session_path,  :method=>:delete %>
+  <% else %>
+  <%= link_to image_tag('facebook_64.png'), omniauth_authorize_path(resource_name, 'facebook') %>
+  <% end  %>
+  
+  <% if  signed_in_to? 'twitter' %>
+  <%= link_to image_tag('twitter_64.png'), destroy_user_session_path, :method=>:delete %>
+  <% else  %>
+  <%= link_to image_tag('twitter_64.png'), omniauth_authorize_path(resource_name, 'twitter') %>
+  <% end  %>
+</div>
+
+<% end -%>
