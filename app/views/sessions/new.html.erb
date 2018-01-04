@@ -1,0 +1,89 @@
+<h2>Sign in/out using one of the following services.  </h2>
+
+<div class="col-sm-offset-3 col-sm-10">
+  <% if  signed_in_to? 'facebook' %>
+  <%= link_to image_tag('facebook_64.png'), signout_path + "/facebook", :method=>:delete %>
+  <% else %>
+  <%= link_to image_tag('facebook_grey_64.png'), '/users/auth/facebook' %>
+  <% end  %>
+  
+  <% if  signed_in_to? 'twitter' %>
+  <%= link_to image_tag('twitter_64.png'), signout_path + "/twitter", :method=>:delete %>
+  <% else  %>
+  <%= link_to image_tag('twitter_grey_64.png'), '/users/auth/twitter' %>
+  <% end  %>
+</div>
+
+<div class="col-sm-offset-3 col-sm-10">
+  <% if  signed_in? %>
+  <%= link_to image_tag("Logout-icon_64.png"), signout_path, :method=>:delete %>
+  Log out of all services
+  <% end  %>
+</div>
+&nbsp
+
+<h3> Already have a WordCloud account? Sign in here. </h3>
+<%= form_for(user,  url: session_path(user)) do |f| %>
+<div class="field">
+  <%= f.label :name %><br />
+  <%= f.field :name, autofocus: true %>
+</div>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true %>
+</div>
+
+<div class="field">
+  <%= f.label :password %><br />
+  <%= f.password_field :password, autocomplete: "off" %>
+</div>
+
+<% if devise_mapping.rememberable? -%>
+<div class="field">
+  <%= f.check_box :remember_me %>
+  <%= f.label :remember_me %>
+</div>
+<% end -%>
+
+<div class="actions">
+  <%= f.submit "Log in" %>
+</div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+&nbsp
+<h3> Don't have an account? Sign up for a WordCloud account </h3>
+&nbsp
+
+<%= form_for(user, url: registration_path(user)) do |f| %>
+<%= devise_error_messages! %>
+
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true %>
+</div>
+
+<div class="field">
+  <%= f.label :password %>
+  <% if @minimum_password_length %>
+  <em>(<%= @minimum_password_length %> characters minimum)</em>
+  <% end %><br />
+  <%= f.password_field :password, autocomplete: "off" %>
+</div>
+
+<div class="field">
+  <%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+</div>
+
+<div class="actions">
+  <%= f.submit "Sign up" %>
+</div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+<% unless Rails.env.production? %>
+<%= link_to image_tag('developer.png'), '/auth/developer' %>
+<% end %>

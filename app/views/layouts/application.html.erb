@@ -30,6 +30,22 @@
         <!-- these two ways of linking weren't compatible with saving code and switching between them -->
         <li><%= link_to "New Survey", new_survey_path %>  </li>
 	<li><%= link_to "Find Survey", search_path %>  </li>
+
+	<% if signed_in? %>
+        <li>
+          <%= link_to "Profile/Signout", current_user %>
+        </li>
+        <% else %>
+        <li>
+          <%= link_to "Login/Signup", new_user_session_path %>
+        </li>
+        <% end %>
+        <!-- < if current_user && current_user.admin? >
+        <li>
+          < link_to "Admin", admin_path >
+        </li> -->
+	
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
