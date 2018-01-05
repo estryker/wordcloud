@@ -83,6 +83,7 @@ GEM
     ffi (1.9.18)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gravatar_image_tag (1.2.0)
     hashie (3.5.7)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
@@ -240,6 +241,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   devise
+  gravatar_image_tag
   jbuilder (~> 2.5)
   jqcloud-rails
   jquery-rails

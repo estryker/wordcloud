@@ -1,0 +1,65 @@
+<div class="container" >
+
+<h1>
+  <%= gravatar_for @user %>
+  <%= link_to @user.name,  :action => 'edit', :id => @user %> 
+</h1>
+
+<h3> Basic Info </h3>
+<div class="row" id="wrapper">
+  <div class="col-md-2"> 
+    Account type:
+  </div>
+  <div class="col-md-2"> 
+    <%= @role_description %>
+  </div>
+</div>
+<div class="row" id="wrapper">
+  <div class="col-md-2"> 
+    Email:
+  </div>
+  <div class="col-md-2"> 
+    <%= @user.email %>
+  </div>
+</div>
+
+<div id="show-user" class="container"> 
+  <h3> Resonses </h3>
+  <% if @responses.empty? %>
+  No responses yet. 
+  <% else %>
+  <h4> <%= pluralize(@responses.length, 'response') %> </h4> 
+  
+  <table class="table table-striped">
+    <% @responses.each do | r | %> 
+    <tr>
+      <td> 
+	<%=  render r %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  
+  <%= will_paginate @responses %>
+  <% end %>
+  
+  <p>
+
+    <div class="row" id="wrapper">
+      <% if signed_in? and (@user == current_user) %>
+      <div class="col-md-1">  
+	<%= button_to "Sign Out", destroy_user_session_path , :method=>:delete, :class => "btn btn-primary"  %> 
+      </div>
+      <% end %>
+      <div class="col-md-2">  
+	<%= button_to "Change Info", edit_user_path(@user),  :action => 'edit', :id => @user, :class => "btn btn-primary", :method => :get %> 
+      </div>
+  
+      <div class="col-md-2">
+	<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+	<%= button_to "Change Registration", edit_user_registration_path(@user), {method: :get, class: "btn btn-default btn-primary"}%><br />
+	<% end -%>
+      </div>
+    </div>
+</div>
+

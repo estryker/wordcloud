@@ -73,3 +73,4 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'pg'
 
 gem "jqcloud-rails"
+gem 'gravatar_image_tag'
