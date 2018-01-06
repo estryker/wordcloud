@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20180105004402) do
     t.index ["user_id"], name: "index_responses_on_user_id"
   end
 
-  create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

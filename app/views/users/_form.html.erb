@@ -22,7 +22,6 @@
     <%= f.select(:role_id, options_from_collection_for_select(Role.all, :name, :name, @user_role_name || "user")) %>
   </div> 
  
-
   <% end %>
   <div class="col-md-1">
     <%= f.submit "Save", class: "btn btn-default btn-primary" %>

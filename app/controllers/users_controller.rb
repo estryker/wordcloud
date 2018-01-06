@@ -17,8 +17,8 @@ class UsersController < ApplicationController
 
    @title = @user.name
    @role_description = Role.find(@user.role_id).name
-   
-   @num_items = @user.items.length # can I do a select count query type thing to make this more efficient??
+   @responses = @user.responses
+   @num_responses = @responses.length # can I do a select count query type thing to make this more efficient??
    # @num_items = Item.where(:user_email => @user.email).count
    
    respond_to do | format |
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
