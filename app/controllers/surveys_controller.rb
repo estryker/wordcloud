@@ -1,4 +1,8 @@
 class SurveysController < ApplicationController
+  include SessionsHelper
+  
+  before_action :authenticate, :only => [:edit, :update, :new, :create]
+  
   def index
   end
 
@@ -78,8 +82,24 @@ class SurveysController < ApplicationController
     end
   end
 
+  def edit
+    @survey = Survey.find(params[:id])
+  end
+
+  def update
+    @survey = Survey.find(params[:id])
+    # TODO: take the parameters and set new values
+  end
+  
   private
   def survey_params
     params.require(:survey).permit(:is_public, :closing_time, :max_responses, :question)
+  end
+
+  def authenticate
+    # new in rails 5: no need to include individual helpers
+    # helpers.
+    # TODO: how do we get the application to redirect the user back to the page that they were on??
+    deny_access unless signed_in? 
   end
 end

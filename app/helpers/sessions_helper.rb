@@ -1,4 +1,6 @@
 module SessionsHelper
+  # Note that this needs to be included into a controller or else all the redirect methods won't work 
+  
   def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     clear_return_to
