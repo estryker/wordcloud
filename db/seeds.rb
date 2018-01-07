@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Role.where({name: 'admin'}).first_or_create
 Role.where({name: 'user' }).first_or_create
+User.where({name: 'Anonymous', email: anonymous_email}).first_or_create

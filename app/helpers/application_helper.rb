@@ -14,5 +14,8 @@ module ApplicationHelper
       "alert-" + flash_type.to_s
     end
   end
-
+ anonymous_email = "anonymous@notarealdomainbutiputithereanyways.com"
+ def anonymous_user
+   User.where(email: anonymous_email).first
+ end                                                                 
 end

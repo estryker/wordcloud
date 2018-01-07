@@ -2,6 +2,7 @@ class SurveysController < ApplicationController
   include SessionsHelper
   
   before_action :authenticate, :only => [:edit, :update, :new, :create]
+  before_action :check_timeout, :only => [:input]
   
   def index
   end
@@ -50,7 +51,8 @@ class SurveysController < ApplicationController
   def add_input
     @survey = Survey.find(params[:id])
 
-    @response = Response.new(survey_id: @survey.id, entry: params[:entry])
+    input_user = (current_user || anonymous_user)
+    @response = Response.new(survey_id: @survey.id, entry: params[:entry], user_id: input_user.id)
     if @response.save
       flash[:notice] = "Thank you for your input!"
       redirect_to @survey
@@ -70,9 +72,15 @@ class SurveysController < ApplicationController
 
   def create
     puts survey_params
-    @survey = Survey.new(:closing_time => DateTime.parse(survey_params[:closing_time]),
+    # DateTime.parse(survey_params[:closing_time]
+    # Using e.g. "01/14/2018 4:30 PM"
+    closing_time = ActiveSupport::TimeWithZone.strftime("%D %I:%m %p",survey_params[:closing_time])
+    @survey = Survey.new(:closing_time => closing_time,
                          :max_responses => survey_params[:max_responses],
                          :question => survey_params[:question])
+
+    # Note that there must be a current_user b/c of the before_action
+    @survey.user_id = current_user.id
     respond_to do | format |
       if @survey.save
         format.html { redirect_to @survey, notice: "Your new survey was created! PIN: #{@survey.survey_pin}" }
@@ -102,4 +110,13 @@ class SurveysController < ApplicationController
     # TODO: how do we get the application to redirect the user back to the page that they were on??
     deny_access unless signed_in? 
   end
+
+  def check_timeout
+    @survey = Survey.find(params[:id])
+    if @survey.closing_time > Time.now
+      flash[:error] = "Survey is closed"
+      redirect_back_or(@survey)
+    end
+  end
+
 end
