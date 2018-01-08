@@ -74,13 +74,14 @@ class SurveysController < ApplicationController
     puts survey_params
     # DateTime.parse(survey_params[:closing_time]
     # Using e.g. "01/14/2018 4:30 PM"
-    closing_time = ActiveSupport::TimeWithZone.strftime("%D %I:%m %p",survey_params[:closing_time])
+    # DateTime.strptime("01/14/2018 04:30 PM", "%m/%d/%Y %I:%M %p")
+    closing_time = DateTime.strptime(survey_params[:closing_time], "%m/%d/%Y %I:%M %p")
     @survey = Survey.new(:closing_time => closing_time,
                          :max_responses => survey_params[:max_responses],
                          :question => survey_params[:question])
 
     # Note that there must be a current_user b/c of the before_action
-    @survey.user_id = current_user.id
+    @survey.user = current_user
     respond_to do | format |
       if @survey.save
         format.html { redirect_to @survey, notice: "Your new survey was created! PIN: #{@survey.survey_pin}" }
@@ -113,9 +114,9 @@ class SurveysController < ApplicationController
 
   def check_timeout
     @survey = Survey.find(params[:id])
-    if @survey.closing_time > Time.now
+    if @survey.closing_time < Time.now
       flash[:error] = "Survey is closed"
-      redirect_back_or(@survey)
+      redirect_to(@survey)
     end
   end
 

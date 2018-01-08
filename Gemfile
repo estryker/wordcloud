@@ -74,3 +74,4 @@ gem 'pg'
 
 gem "jqcloud-rails"
 gem 'gravatar_image_tag'
+gem 'stopwords-filter', require: 'stopwords'

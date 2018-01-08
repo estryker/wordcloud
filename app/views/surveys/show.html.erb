@@ -19,8 +19,9 @@
   <h2> <%= @survey.question %> </h2>
   <p>
     <!-- You should explicitly specify the dimensions of the container element -->
+    <% if @survey.responses.length > 0 %>
     <div id="wordcloud" style="width: 550px; height: 350px;"></div>
-
+   
   <p>
   <h4>Word Counts</h4>
   <table class="table">
@@ -41,6 +42,11 @@
       </tr>
       <% end %>
     </tbody>
-  </table>      
-  <%= link_to 'Add input', survey_path + "/input", :class => "btn btn-default btn-primary" %> 
+  </table>
+   <% else %>
+    <h3> <i> No responses yet. </i> </h3>
+    <% end %>
+    <% if  @survey.closing_time > Time.now %>
+    <%= link_to 'Add input', survey_path + "/input", :class => "btn btn-default btn-primary" %>
+    <% end %>
 </div>
