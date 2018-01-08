@@ -53,7 +53,7 @@
 	<%= f.label :max_responses , class: "col-md-1 control-label" %>
       </div>
       <div class="col-md-6">
-	<%= f.select(:max_responses, (1..10).to_a.map {|i| i.to_s} + ["No Limit"]) %>
+	<%= f.select(:max_responses, [1] + ((5..50).step(5).to_a).map {|i| i.to_s} + ["No Limit"]) %>
       </div>
     </div>
     &nbsp    

@@ -31,16 +31,20 @@
   <h4> <%= pluralize(@responses.length, 'response') %> </h4> 
   
   <table class="table table-striped">
-    <% @responses.each do | r | %> 
-    <tr>
-      <td> 
-	<%=  render r %>
-      </td>
-    </tr>
-    <% end %>
+    <thead>
+        <tr>
+            <th>Survey Question</th>
+            <th>PIN</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @responses.each do | r | %> 
+      <%=  render r %>
+      <% end %>
+    </tbody>
   </table>
   
-  <%= will_paginate @responses %>
   <% end %>
   
   <p>

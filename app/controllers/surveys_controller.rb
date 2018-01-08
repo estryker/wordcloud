@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
   
   def show
     @survey = Survey.find(params[:id])
-    responses = @survey.responses
+    responses = @survey.responses 
     puts "Response: \n" + responses.map {|r| r.cleaned_entry}.join("\n")
     # s.flat_map {|x| x.split(" ") }.group_by {|w| w}.map {|k,v| [k, v.length]}
     @word_counts = Hash.new(0)
@@ -52,6 +52,8 @@ class SurveysController < ApplicationController
     @survey = Survey.find(params[:id])
 
     input_user = (current_user || anonymous_user)
+
+
     @response = Response.new(survey_id: @survey.id, entry: params[:entry], user_id: input_user.id)
     if @response.save
       flash[:notice] = "Thank you for your input!"
@@ -76,8 +78,15 @@ class SurveysController < ApplicationController
     # Using e.g. "01/14/2018 4:30 PM"
     # DateTime.strptime("01/14/2018 04:30 PM", "%m/%d/%Y %I:%M %p")
     closing_time = DateTime.strptime(survey_params[:closing_time], "%m/%d/%Y %I:%M %p")
+
+    max_responses = 1 
+    if survey_params[:max_responses].downcase.include? "no limit"
+      max_responses = 1_000_000
+    elsif survey_params[:max_responses] =~ /^\d+/
+      max_responses = survey_params[:max_responses]
+    end
     @survey = Survey.new(:closing_time => closing_time,
-                         :max_responses => survey_params[:max_responses],
+                         :max_responses => max_responses,
                          :question => survey_params[:question])
 
     # Note that there must be a current_user b/c of the before_action
