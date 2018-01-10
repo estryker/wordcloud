@@ -9,6 +9,8 @@
 #  updated_at    :datetime         not null
 #  max_responses :integer
 #  question      :string
+#  user_id       :integer
+#  is_public     :boolean
 #
 
 class Survey < ApplicationRecord

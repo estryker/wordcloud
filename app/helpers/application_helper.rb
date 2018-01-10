@@ -13,8 +13,13 @@ module ApplicationHelper
     else
       "alert-" + flash_type.to_s
     end
-  end
- anonymous_email = "anonymous@notarealdomainbutiputithereanyways.com"
+ end
+
+ # This is to allow controllers to access this in a controlled way without polluting their namespace
+ # using helpers.anonymous_email
+ def anonymous_email
+   "anonymous@notarealdomainbutiputithereanyways.com"
+ end
  def anonymous_user
    User.where(email: anonymous_email).first
  end                                                                 

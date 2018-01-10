@@ -2,7 +2,9 @@ class SurveysController < ApplicationController
   include SessionsHelper
   
   before_action :authenticate, :only => [:edit, :update, :new, :create]
-  before_action :check_timeout, :only => [:input]
+  before_action :set_survey, :only => [:show, :input, :add_input, :edit, :update, :check_timeout]
+  before_action :check_public, :only => [:input, :add_input]
+  before_action :check_timeout, :only => [:input, :add_input]
   
   def index
   end
@@ -51,9 +53,8 @@ class SurveysController < ApplicationController
   def add_input
     @survey = Survey.find(params[:id])
 
-    input_user = (current_user || anonymous_user)
-
-
+    input_user = (current_user || helpers.anonymous_user)
+    
     @response = Response.new(survey_id: @survey.id, entry: params[:entry], user_id: input_user.id)
     if @response.save
       flash[:notice] = "Thank you for your input!"
@@ -63,6 +64,7 @@ class SurveysController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
+
   
   # when the creator wants to change something in an existing survey
   def admin
@@ -79,14 +81,16 @@ class SurveysController < ApplicationController
     # DateTime.strptime("01/14/2018 04:30 PM", "%m/%d/%Y %I:%M %p")
     closing_time = DateTime.strptime(survey_params[:closing_time], "%m/%d/%Y %I:%M %p")
 
-    max_responses = 1 
-    if survey_params[:max_responses].downcase.include? "no limit"
-      max_responses = 1_000_000
-    elsif survey_params[:max_responses] =~ /^\d+/
+    max_responses = 1_000_000
+    if survey_params.has_key? :max_responses and survey_params[:max_responses] =~ /^\d+/
       max_responses = survey_params[:max_responses]
+    else # if survey_params[:max_responses].downcase.include? "no limit"
+      max_responses = 1_000_000
     end
+    is_public = (survey_params[:is_public] || "true").downcase.strip == 'true'
     @survey = Survey.new(:closing_time => closing_time,
                          :max_responses => max_responses,
+                         :is_public => is_public,
                          :question => survey_params[:question])
 
     # Note that there must be a current_user b/c of the before_action
@@ -101,19 +105,23 @@ class SurveysController < ApplicationController
   end
 
   def edit
-    @survey = Survey.find(params[:id])
+    # @survey = Survey.find(params[:id])
   end
 
   def update
-    @survey = Survey.find(params[:id])
+    # @survey = Survey.find(params[:id])
     # TODO: take the parameters and set new values
   end
   
   private
   def survey_params
-    params.require(:survey).permit(:is_public, :closing_time, :max_responses, :question)
+    params.require(:survey).permit(:is_public,:closing_time, :max_responses, :question)
   end
 
+  def set_survey
+    @survey = Survey.find(params[:id])
+  end
+  
   def authenticate
     # new in rails 5: no need to include individual helpers
     # helpers.
@@ -121,12 +129,21 @@ class SurveysController < ApplicationController
     deny_access unless signed_in? 
   end
 
+  def check_public
+    if current_user.nil? and not @survey.is_public 
+      flash[:error] = "You must sign in to add input to that survey"
+      store_location
+      redirect_to(new_user_session_path)
+    end
+  end
+
   def check_timeout
-    @survey = Survey.find(params[:id])
+    # @survey = Survey.find(params[:id])
     if @survey.closing_time < Time.now
       flash[:error] = "Survey is closed"
       redirect_to(@survey)
     end
   end
+  
 
 end
