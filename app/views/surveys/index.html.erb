@@ -1,2 +1,21 @@
-<h1>Survey#index</h1>
-<p>Find me in app/views/survey/index.html.erb</p>
+<div class="container">
+  <h1>Surveys</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Survey Question</th>
+        <th>PIN</th>
+        <th>Public?</th>
+	<th>Closing Date</th>
+	<th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @surveys.each do | s | %> 
+      <%=  render s %>
+      <% end %>
+    </tbody>
+    
+  </table>
+  <%= will_paginate @surveys %>
+</div>

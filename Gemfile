@@ -75,3 +75,5 @@ gem 'pg'
 gem "jqcloud-rails"
 gem 'gravatar_image_tag'
 # gem 'stopwords-filter', require: 'stopwords'
+
+gem 'will_paginate', '>= 3.1'

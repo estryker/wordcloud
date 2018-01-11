@@ -2,16 +2,25 @@ class SurveysController < ApplicationController
   include SessionsHelper
   
   before_action :authenticate, :only => [:edit, :update, :new, :create]
-  before_action :set_survey, :only => [:show, :input, :add_input, :edit, :update, :check_timeout]
+  before_action :set_survey, :only => [:survey, :show, :input, :add_input, :edit, :update, :check_timeout]
   before_action :check_public, :only => [:input, :add_input]
   before_action :check_timeout, :only => [:input, :add_input]
   
   def index
+    # TODO: return all surveys.  if this is an admin, return all.  If not, return only the pulbic ones.
+    # This could get long - need to get the will_paginate gem first
+    where_clause = ""
+    if signed_in? and current_user.admin?
+      where_clause = "1 = 1"
+    else
+      where_clause = "is_public is true"
+    end
+    @surveys = Survey.where(where_clause).paginate(:page => params[:page])
   end
 
   # either get here from direct URL or from a search box on the main page, or the survey overview page
   def survey
-    @survey = Survey.find(params[:id])
+    # @survey = Survey.find(params[:id])
     if @survey.nil?
       flash[:error] = "Survey not found"
       redirect_back_or root_path
@@ -19,7 +28,7 @@ class SurveysController < ApplicationController
   end
   
   def show
-    @survey = Survey.find(params[:id])
+    # @survey = Survey.find(params[:id])
     responses = @survey.responses 
     puts "Response: \n" + responses.map {|r| r.cleaned_entry}.join("\n")
     # s.flat_map {|x| x.split(" ") }.group_by {|w| w}.map {|k,v| [k, v.length]}
