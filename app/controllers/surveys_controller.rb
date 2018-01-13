@@ -1,8 +1,8 @@
 class SurveysController < ApplicationController
   include SessionsHelper
   
-  before_action :authenticate, :only => [:edit, :update, :new, :create]
-  before_action :set_survey, :only => [:survey, :show, :input, :add_input, :edit, :update, :check_timeout]
+  before_action :authenticate, :only => [:edit, :update, :new, :create, :edit_responses, :update_responses]
+  before_action :set_survey, :only => [:survey, :show, :input, :add_input, :edit, :update, :check_timeout, :edit_responses, :update_responses]
   before_action :check_public, :only => [:input, :add_input]
   before_action :check_timeout, :only => [:input, :add_input]
   
@@ -117,6 +117,14 @@ class SurveysController < ApplicationController
     # @survey = Survey.find(params[:id])
   end
 
+  def edit_responses
+    @responses = @survey.responses 
+  end
+
+  def update_responses
+
+  end
+  
   def update
     # @survey = Survey.find(params[:id])
     # TODO: take the parameters and set new values

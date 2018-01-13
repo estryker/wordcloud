@@ -49,4 +49,13 @@
     <% if  @survey.closing_time > Time.now %>
     <%= link_to 'Add input', survey_path + "/input", :class => "btn btn-default btn-primary" %>
     <% end %>
+
+    <% if  current_user.admin? %>
+    <%= link_to 'Edit Survey', survey_path + "/edit", :class => "btn btn-default btn-primary" %>
+    <% end %>
+
+    <% if  current_user.admin? %>
+    <%= link_to 'Edit Responses', survey_path + "/input", :class => "btn btn-default btn-primary" %>
+    <% end %>
+
 </div>
