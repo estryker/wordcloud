@@ -55,11 +55,9 @@
     <%= link_to 'Add input', new_survey_response_path(@survey), :class => "btn btn-default btn-primary" %>
     <% end %>
 
-    <% if  current_user.admin? %>
+    <% if  signed_in? and current_user.admin? %>
     <%= link_to 'Edit Survey', edit_survey_path, :class => "btn btn-default btn-primary" %>
-    <% end %>
-
-    <% if  current_user.admin? %>
+    
     <%= link_to 'All Responses', survey_responses_path(@survey), :class => "btn btn-default btn-primary" %>
     <% end %>
 

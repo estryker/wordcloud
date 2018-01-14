@@ -2,7 +2,7 @@ class ResponsesController < ApplicationController
   include SessionsHelper
 
   before_action :set_survey, :only => [:show, :new, :create, :check_timeout, :edit, :update, :index,:check_user]
-  before_action :authenticate, :only => [:edit, :update, :new, :create, :index]
+  before_action :authenticate, :only => [:edit, :update, :index]
   before_action :check_user, :only => [:edit, :update]
   before_action :check_admin, :only => [:index]
   before_action :set_response, :only => [:show, :edit, :update]
