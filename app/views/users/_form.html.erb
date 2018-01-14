@@ -19,7 +19,7 @@
   <% if signed_in? and current_user.admin? %>
   <div class="field">
     <%= f.label :role %><br>
-    <%= f.select(:role_id, options_from_collection_for_select(Role.all, :name, :name, @user_role_name || "user")) %>
+    
   </div> 
  
   <% end %>
