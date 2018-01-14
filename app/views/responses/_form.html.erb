@@ -1,0 +1,10 @@
+<h2> <%= @survey.question %> </h2>
+  <%= form_for [@survey, @response]  do |f|  %>
+  <div class="form-group">
+    <%= f.label :response %>
+    <%= f.text_field :entry %>
+  </div>
+  <%= submit_tag "Submit", class: "btn btn-large btn-primary" %>
+  
+  <% end %>
+  

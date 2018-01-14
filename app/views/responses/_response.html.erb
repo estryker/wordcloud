@@ -5,7 +5,7 @@
   <td> <%= response.cleaned_entry %> </td>
   <td> <%= link_to "View", response.survey, class: "btn btn-large btn-primary"  %> </td>
   <% if current_user.admin? or current_user == response.user %>
-    <td> <%= link_to "Edit", response.survey, class: "btn btn-large btn-danger"  %> </td>
+    <td> <%= link_to "Edit", edit_survey_response_path(response.survey,response), class: "btn btn-large btn-danger"  %> </td>
   <% end %>
 </tr>
 

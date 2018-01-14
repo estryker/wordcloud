@@ -22,5 +22,7 @@ module ApplicationHelper
  end
  def anonymous_user
    User.where(email: anonymous_email).first
- end                                                                 
+ end
+ 
+  
 end

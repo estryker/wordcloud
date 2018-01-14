@@ -2,7 +2,9 @@ Rails.application.routes.draw do
  
   root 'welcome#index'
 
-  resources :surveys
+  resources :surveys do
+    resources :responses
+  end
 
 
   get 'surveys/:id/input', :to => 'surveys#input'
@@ -10,6 +12,10 @@ Rails.application.routes.draw do
 
   post 'surveys/:id/input', :to => 'surveys#add_input'
   post 'search', :to => 'surveys#do_search'
+
+  # resources :users, :only => [:edit, :delete]
+  # get 'responses/:id/edit', :to => 'surveys#edit_response', :path => 'responses'
+  # post 'responses/:id/edit', :to => 'surveys#update_response'
 
   get 'welcome/index'
 

@@ -161,6 +161,5 @@ class SurveysController < ApplicationController
       redirect_to(@survey)
     end
   end
-  
 
 end

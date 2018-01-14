@@ -1,0 +1,5 @@
+<% form_for @response do |f| %>
+<%= f.label 'Response' %> 
+<%= f.text_field @response.entry %>
+<%= f.submit "Submit", class: 'btn btn-primary'  %>
+<% end %>

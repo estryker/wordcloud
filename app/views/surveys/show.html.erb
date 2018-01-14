@@ -47,15 +47,20 @@
     <h3> <i> No responses yet. </i> </h3>
     <% end %>
     <% if  @survey.closing_time > Time.now %>
+
+    <!-- original kludge
     <%= link_to 'Add input', survey_path + "/input", :class => "btn btn-default btn-primary" %>
+    -->
+    
+    <%= link_to 'Add input', new_survey_response_path(@survey), :class => "btn btn-default btn-primary" %>
     <% end %>
 
     <% if  current_user.admin? %>
-    <%= link_to 'Edit Survey', survey_path + "/edit", :class => "btn btn-default btn-primary" %>
+    <%= link_to 'Edit Survey', edit_survey_path, :class => "btn btn-default btn-primary" %>
     <% end %>
 
     <% if  current_user.admin? %>
-    <%= link_to 'Edit Responses', survey_path + "/input", :class => "btn btn-default btn-primary" %>
+    <%= link_to 'All Responses', survey_responses, :class => "btn btn-default btn-primary" %>
     <% end %>
 
 </div>
