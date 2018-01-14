@@ -1,12 +1,18 @@
 class ResponsesController < ApplicationController
   include SessionsHelper
-  
-  before_action :authenticate, :only => [:edit, :update, :new, :create]
-  before_action :set_survey, :only => [:show, :new, :create, :check_timeout, :edit, :update]
+
+  before_action :set_survey, :only => [:show, :new, :create, :check_timeout, :edit, :update, :index,:check_user]
+  before_action :authenticate, :only => [:edit, :update, :new, :create, :index]
+  before_action :check_user, :only => [:edit, :update]
+  before_action :check_admin, :only => [:index]
   before_action :set_response, :only => [:show, :edit, :update]
   before_action :check_public, :only => [:new, :create]
   before_action :check_timeout, :only => [:new, :create]
 
+  def index
+    @responses = @survey.responses 
+  end
+  
   # when users are taking a survey. this corresponds to the 'get' action
   def new
     # @survey = Survey.find(params[:id])
@@ -85,5 +91,11 @@ class ResponsesController < ApplicationController
       flash[:error] = "Survey is closed"
       redirect_to(@survey)
     end
+  end
+  def check_user
+    deny_access unless current_user.id == @survey.user_id
+  end
+  def check_admin
+    deny_access unless current_user.admin?
   end
 end

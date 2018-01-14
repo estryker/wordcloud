@@ -1,0 +1,21 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Survey Question</th>
+            <th>PIN</th>
+            <th>Response</th>
+	    <th>Cleaned Response</th>
+	    <th><th>
+	    <th><th>
+
+        </tr>
+    </thead>
+    <tbody>
+      <% @responses.each do | r | %> 
+      <%=  render r %>
+      <% end %>
+    </tbody>
+  </table>
+  
+</div>

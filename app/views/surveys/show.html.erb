@@ -60,7 +60,7 @@
     <% end %>
 
     <% if  current_user.admin? %>
-    <%= link_to 'All Responses', survey_responses, :class => "btn btn-default btn-primary" %>
+    <%= link_to 'All Responses', survey_responses_path(@survey), :class => "btn btn-default btn-primary" %>
     <% end %>
 
 </div>
