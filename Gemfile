@@ -76,7 +76,3 @@ gem 'gravatar_image_tag'
 # gem 'stopwords-filter', require: 'stopwords'
 
 gem 'will_paginate', '>= 3.1'
-class Application < Rails::Application
-    # turn pipeline off
-    config.assets.enabled = false
-end
