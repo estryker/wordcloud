@@ -11,14 +11,17 @@
 
 default: &default
   adapter: postgresql
-  pool: 5
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
   timeout: 5000
   host: localhost
   username: pguser
   password: pguser123
-
-development:
-  <<: *default
   database: wordcloud_development
 
 # Warning: The database defined as "test" will be erased and
