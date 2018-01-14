@@ -1,0 +1,77 @@
+
+  <%= form_for(@survey, :html => {:class => "form-horizontal center", :multipart => true}) do |f| %>
+  <% if @survey.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+    
+    <ul>
+      <% @survey.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <div class="row">
+    <div class='col-md-2'>
+      <%= f.label :survey_question %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_area :question %>
+    </div>
+  </div>
+  &nbsp
+    <div class="row">
+      <div class='col-md-2'>
+	<%= f.label :open_until %>
+      </div>
+      <div class='col-md-6'>
+        <div class='input-group date' id='datetimepicker'>
+	  
+	  <%= f.text_field(:closing_time, :class => "form-control") %>
+          <!-- <input type='text' class="form-control" />  -->
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- https://eonasdan.github.io/bootstrap-datetimepicker/  -->
+    <script type="text/javascript">
+      $(function () {
+      $('#datetimepicker').datetimepicker({
+      defaultDate: "<%= 1.week.from_now.iso8601 %>"
+      });
+      });
+    </script>
+<!-- Not yet for the max responses ...
+  &nbsp
+    <div class="row">
+      <div class="col-md-2">
+	<%= f.label :max_responses , class: "col-md-1 control-label" %>
+      </div>
+      <div class="col-md-6">
+	<%= f.select(:max_responses, [1] + ((5..50).step(5).to_a).map {|i| i.to_s} + ["No Limit"]) %>
+      </div>
+    </div>
+    -->
+
+    &nbsp    
+    <div class="row">
+      <div class="col-md-2"> 
+	Public <%= f.radio_button 'is_public', "true", checked: true %>
+      </div>
+      <div class="col-md-2"> 
+	Logged in users only <%= f.radio_button 'is_public', "false" %>
+      </div>
+    </div>
+    &nbsp
+    <div class="row">
+      <div class="actions">
+	
+	<div class="col-md-6">
+	  <%= f.submit "Submit", class: "btn btn-default btn-primary" %>
+	</div>
+      </div>
+    </div>
+    <% end %>

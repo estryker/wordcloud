@@ -128,6 +128,18 @@ class SurveysController < ApplicationController
   def update
     # @survey = Survey.find(params[:id])
     # TODO: take the parameters and set new values
+    @survey.closing_time = DateTime.strptime(survey_params[:closing_time], "%m/%d/%Y %I:%M %p")
+    @survey.question = survey_params[:question]
+    
+    @survey.is_public = (survey_params[:is_public] || "true").downcase.strip == 'true'
+    respond_to do | format |
+      if @survey.save
+        format.html { redirect_to @survey, notice: "Survey updated" }
+      else
+        format.html { render :edit }
+      end
+    end
+
   end
   
   private
