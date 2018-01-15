@@ -54,7 +54,7 @@ class Authorization < ActiveRecord::Base
       email = nil
       if auth_hash["info"].has_key?("email") and not auth_hash["info"]["email"].nil? and not auth_hash["info"]["email"].empty?
         email = auth_hash["info"]["email"]
-        if poss_user = find_by_email(email)
+        if poss_user = User.find_by_email(email)
           # There is a user with this email already in the system. 
           # if it hasn't been verified, we don't want to link the two 
           # users in an authorization.  But if it has been verified, then
