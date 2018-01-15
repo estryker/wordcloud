@@ -36,6 +36,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable,  omniauth_providers: [:facebook, :twitter, :istherea]
 
+  TEMP_EMAIL_REGEX = /\Achange@me/
 
   user_role_id = 2 # Role.where(name: 'user').first.id
   attribute :role_id, :integer, default: user_role_id
