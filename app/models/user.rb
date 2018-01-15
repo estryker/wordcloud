@@ -32,7 +32,9 @@ class User < ApplicationRecord
   has_many :surveys
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  # Note: we need an email domain and to setup something like MailGun to make the emails verifiable.
+  #       If it becomes a problem, just only use facebook / twitter logins
+  devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable,  omniauth_providers: [:facebook, :twitter, :istherea]
 
