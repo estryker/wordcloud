@@ -59,7 +59,7 @@ class Authorization < ActiveRecord::Base
           # if it hasn't been verified, we don't want to link the two 
           # users in an authorization.  But if it has been verified, then
           # lets use the already existing user. 
-          if poss_user.verified || poss_user.verified_email
+          if poss_user.email_verified? # poss_user.verified || poss_user.verified_email
             user = poss_user
           end
         end
