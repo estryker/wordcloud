@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
           respond_to do | format |
             format.html do
               flash[:success] = "Signed in to #{provider}"
-              redirect_back_or root_path
+              redirect_back(fallback_location: root_path)
             end
           end
         else

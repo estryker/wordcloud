@@ -32,9 +32,10 @@ class User < ApplicationRecord
   has_many :surveys
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable,  omniauth_providers: [:facebook, :twitter, :istherea]
+
 
   user_role_id = 2 # Role.where(name: 'user').first.id
   attribute :role_id, :integer, default: user_role_id

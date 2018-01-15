@@ -275,9 +275,10 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], 
-          scope: 'email,publish_actions, user_posts',
+  config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], 
+                  scope: 'email,publish_actions, user_posts',
                   strategy_class: OmniAuth::Strategies::Facebook
+
   config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET'], 
                   strategy_class: OmniAuth::Strategies::Twitter
   
